@@ -7,8 +7,28 @@ const colors = {
     sat: 50
   },
   green: {
+    hue: 25500,
+    bri: 187,
+    sat: 255
+  },
+  yellow: {
     hue: 15000,
     bri: 255,
+    sat: 255
+  },
+  orange: {
+    hue: 6500,
+    bri: 187,
+    sat: 255
+  },
+  red: {
+    hue: 1000,
+    bri: 187,
+    sat: 255
+  },
+  blue: {
+    hue: 46920,
+    bri: 187,
     sat: 255
   }
 };
@@ -16,12 +36,13 @@ const colors = {
 const activities = {
   heartbeat: {alert: 'select'},
   flashing: {alert: 'lselect'},
-  stopFlashing: {alert: 'none'}
+  stopFlashing: {alert: 'none'},
+  off: {on: false}
 };
 
-const mood = {
+const moods = {
   alive: {
-    color: colors.white,
+    color: colors.blue,
     activity: {type: activities.heartbeat}
   },
   happy: {},
@@ -36,6 +57,5 @@ const mood = {
 module.exports = {
   activities,
   colors,
-  mood,
-  foo
+  moods
 };
