@@ -1,5 +1,13 @@
 'use strict';
 
+const receivers = [{
+  name: 'second',
+  id: '00879867898fead3'
+}, {
+  name: 'berlin',
+  id: '001788fffe17fba7'
+}];
+
 const colors = {
   white: {
     hue: 6000,
@@ -56,6 +64,7 @@ const moods = {
 
 module.exports = {
   activities,
+  receivers,
   colors,
   moods
 };

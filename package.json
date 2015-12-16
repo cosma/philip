@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/zcei/philip#readme",
   "dependencies": {
-    "request-promise": "^1.0.2"
+    "request-promise": "^1.0.2",
+    "restify": "^4.0.3"
   }
 }
