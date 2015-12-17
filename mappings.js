@@ -7,7 +7,7 @@ const receivers = [{
 }, {
   name: 'berlin',
   id: '001788fffe17fba7',
-  bulbs : ["Akrem" , "Stephan" , "Mario"]
+  bulbs : ["phpWoker" , "htmlWorker" , "ydService"]
 }];
 
 const colors = {

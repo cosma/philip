@@ -14,27 +14,22 @@ const server = restify.createServer();
 server.listen(port, (e) => e ? console.error(e.stack) : console.log('listening on', port));
 
 server.get('/:bulb/:mood', function (req, res, next) {
- 
     const bulbName = req.params.bulb;
-    const mood = req.params.mood;
-
-    const x = find(receivers,function(item){
-    	const index = item.bulbs.indexOf(bulbName) ;
-    	if (index!== -1)
+    const mood = moods[req.params.mood];
+    console.log(mood);
+    const receiver = find(receivers,function(item){
+    	if(item.bulbs.indexOf(bulbName) !== -1)
     		return true; 
-    }) ;
+    });
 
-    if (x === undefined) {
-    	 var err = new restify.errors.BadRequestError('Bulb´s name does not match');
-
-
+    if (receiver === undefined) {
+    	var err = new restify.errors.BadRequestError('Bulb´s name does not match');
     	return next(err) ;
     }
+	const bulb = receiver.bulbs.indexOf(bulbName)
+    const endpoint = '/lights/'+bulb+'/state';
 
 
-
-
-    const endpoint = '/lights/1/state';
 
 	const heartbeat = Object.assign({on: true, transitiontime: 5}, moods.alive.color);
 	const fadeOut = Object.assign({}, heartbeat, {bri: 1, transitiontime: 5});
