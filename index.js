@@ -1,9 +1,11 @@
 'use strict';
 
 const restify = require('restify');
+const find = require('lodash').find;
 
 const command = require('./command');
 const mappings = require('./mappings');
+const receivers = mappings.receivers;
 const moods = mappings.moods;
 
 const port = 1337;
@@ -11,10 +13,27 @@ const server = restify.createServer();
 
 server.listen(port, (e) => e ? console.error(e.stack) : console.log('listening on', port));
 
-server.get('/:receiver/:bulb/:mood', function (req, res) {
-    const receiver = req.params.receiver;
-    const bulb = req.params.bulb;
+server.get('/:bulb/:mood', function (req, res, next) {
+ 
+    const bulbName = req.params.bulb;
     const mood = req.params.mood;
+
+    const x = find(receivers,function(item){
+    	const index = item.bulbs.indexOf(bulbName) ;
+    	if (index!== -1)
+    		return true; 
+    }) ;
+
+    if (x === undefined) {
+    	 var err = new restify.errors.BadRequestError('Bulb´s name does not match');
+
+
+    	return next(err) ;
+    }
+
+
+
+
     const endpoint = '/lights/1/state';
 
 	const heartbeat = Object.assign({on: true, transitiontime: 5}, moods.alive.color);

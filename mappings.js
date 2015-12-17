@@ -2,10 +2,12 @@
 
 const receivers = [{
   name: 'second',
-  id: '00879867898fead3'
+  id: '00879867898fead3',
+  bulbs : []
 }, {
   name: 'berlin',
-  id: '001788fffe17fba7'
+  id: '001788fffe17fba7',
+  bulbs : ["Akrem" , "Stephan" , "Mario"]
 }];
 
 const colors = {
