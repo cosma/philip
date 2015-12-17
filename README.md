@@ -7,13 +7,22 @@ An API to control the philps' hue bulbs
 /:bulb/:mood
 
 ## Bulbs
-Current bulb names:
+Current bulb names:  
 **phpWoker**  
 **htmlWorker**   
 **ydService**  
+  
+Config  
+```sh
+mapping.js
+```
 
 ## Moods
 **alive**  
 **happy**  
 **stressed**  
-**critical**
+**critical**  
+Config  
+```sh
+mapping.js
+```
