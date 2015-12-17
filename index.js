@@ -16,7 +16,6 @@ server.listen(port, (e) => e ? console.error(e.stack) : console.log('listening o
 server.get('/:bulb/:mood', function (req, res, next) {
     const bulbName = req.params.bulb;
     const mood = moods[req.params.mood];
-    console.log(mood);
     const receiver = find(receivers,function(item){
     	if(item.bulbs.indexOf(bulbName) !== -1)
     		return true; 
@@ -26,6 +25,7 @@ server.get('/:bulb/:mood', function (req, res, next) {
     	var err = new restify.errors.BadRequestError('Bulb´s name does not match');
     	return next(err) ;
     }
+   	console.log(receiver);
 	const bulb = receiver.bulbs.indexOf(bulbName)
     const endpoint = '/lights/'+bulb+'/state';
 
