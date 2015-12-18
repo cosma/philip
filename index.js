@@ -16,30 +16,24 @@ server.listen(port, (e) => e ? console.error(e.stack) : console.log('listening o
 server.get('/:bulb/:mood', function (req, res, next) {
     const bulbName = req.params.bulb;
     const mood = moods[req.params.mood];
-    const receiver = find(receivers,function(item){
-    	if(item.bulbs.indexOf(bulbName) !== -1)
-    		return true; 
+    const receiver = find(receivers, function (item) {
+        return item.bulbs.indexOf(bulbName) !== -1;
     });
 
-    if (receiver === undefined || mood === undefined) {
-    	var err = new restify.errors.BadRequestError('Bulb´s or mood´s name does not match');
-    	return next(err) ;
+    if (!receiver || !mood) {
+        let err = new restify.errors.BadRequestError('Bulb´s or mood´s name does not match');
+        return next(err);
     }
 
-	const bulb = receiver.bulbs.indexOf(bulbName)
-    const endpoint = '/lights/'+bulb+'/state';
+    const bulb = receiver.bulbs.indexOf(bulbName);
+    const endpoint = `/lights/${bulb}/state`;
 
-	const heartbeat = Object.assign({on: true, transitiontime: 5}, mood.color);
-	const fadeOut = Object.assign({}, heartbeat, {bri: 1, transitiontime: 5});
-	const off = {on: false};
+    const heartbeat = Object.assign({on: true, transitiontime: 5}, mood.color);
+    const fadeOut = Object.assign({}, heartbeat, {bri: 1, transitiontime: 5});
+    const off = {on: false};
 
-	command('PUT', endpoint, heartbeat)
-	    .then(() => command('PUT', endpoint, fadeOut))
-	    .then(() => command('PUT', endpoint, off))
-	    .then(() => console.log('Everything fine'));
+    command('PUT', endpoint, heartbeat)
+        .then(() => command('PUT', endpoint, fadeOut))
+        .then(() => command('PUT', endpoint, off))
+        .then(() => console.log('Everything fine'));
 });
-
-
-
-
-
