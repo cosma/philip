@@ -9,9 +9,9 @@ program
   .parse(process.argv);
 
 if (program.mood && program.bulb) {
-	host = `${host}/${program.bulb}/${program.mood}`;
-	console.log(host);
-	request(host).then(() => {
-		console.log('yoo');
-	});
+    let endpoint = `${host}/${program.bulb}/${program.mood}`;
+    console.log(host);
+    request(endpoint).then(() => {
+        console.log(`Told my mood, and it's "${program.mood}"`);
+    });
 }

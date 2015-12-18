@@ -28,12 +28,45 @@ server.get('/:bulb/:mood', function (req, res, next) {
     const bulb = receiver.bulbs.indexOf(bulbName);
     const endpoint = `/lights/${bulb}/state`;
 
-    const heartbeat = Object.assign({on: true, transitiontime: 5}, mood.color);
-    const fadeOut = Object.assign({}, heartbeat, {bri: 1, transitiontime: 5});
+    let action;
+    switch (mood.activity) {
+        case 'smooth':
+            action = smoothBlink;
+            break;
+        case 'flashing':
+            action = blink;
+            break;
+        case 'constant':
+        default:
+            action = continous;
+    }
+
+
+    return action(endpoint, mood)
+        .then(() => console.log('Everything fine'))
+        .then(() => res.send(200));
+});
+
+
+function smoothBlink(endpoint, mood) {
+    const fadeIn = Object.assign({on: true, transitiontime: 5}, mood.color);
+    const fadeOut = Object.assign({}, fadeIn, {bri: 1, transitiontime: 5});
     const off = {on: false};
 
-    command('PUT', endpoint, heartbeat)
+    return command('PUT', endpoint, fadeIn)
         .then(() => command('PUT', endpoint, fadeOut))
-        .then(() => command('PUT', endpoint, off))
-        .then(() => console.log('Everything fine'));
-});
+        .then(() => command('PUT', endpoint, off));
+}
+
+function blink(endpoint, mood) {
+    var payload = Object.assign({alert: 'select'}, mood.color);
+    const off = {on: false};
+
+    return command('PUT', endpoint, payload, 15000)
+        .then(() => command('PUT', endpoint, off));
+}
+
+function continous(endpoint, mood) {
+    const payload = Object.assign({on: true}, mood.color);
+    return command('PUT', endpoint, payload);
+}

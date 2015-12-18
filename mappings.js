@@ -3,11 +3,11 @@
 const receivers = [{
   name: 'second',
   id: '00879867898fead3',
-  bulbs : []
+  bulbs: []
 }, {
   name: 'berlin',
   id: '001788fffe17fba7',
-  bulbs : ["phpWoker" , "htmlWorker" , "ydService"]
+  bulbs: ['phpWoker', 'htmlWorker', 'ydService']
 }];
 
 const colors = {
@@ -53,21 +53,24 @@ const activities = {
 const moods = {
   alive: {
     color: colors.blue,
-    activity: {type: activities.heartbeat}
+    activity: 'smooth'
   },
   happy: {
-    color:colors.green,
-    activity: {type: activities.heartbeat}
+    color: colors.green,
+    activity: 'smooth'
   },
   stressed: {
-    color:colors.orange,
-    activity: {type: activities.flashing}
+    color: colors.orange,
+    activity: 'flashing'
   },
   critical: {
     color: colors.red,
-    activity: {type: activities.flashing, duration: 5}
+    activity: 'flashing'
   },
-  dead: {color: colors.pink}
+  dead: {
+    color: colors.pink,
+    activity: 'constant'
+  }
 };
 
 module.exports = {

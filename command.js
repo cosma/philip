@@ -13,8 +13,8 @@ const token = '117eb81b3935ab6f19a21b23382b78f7';
 
 const serviceDiscovery = 'https://www.meethue.com/api/nupnp';
 let activeReceivers;
-let api ; 
-let url ; 
+let api;
+let url;
 
 function discover() {
     return request(serviceDiscovery).then((body) => {
@@ -28,9 +28,8 @@ function discover() {
             (memo, r) => Object.assign(memo, {[r.name]: r.internalipaddress})
         );
 
-        const host = activeReceivers.internalipaddress  ; 
-        api =  `${protocol}://${host}/${base}/${token}`;
-
+        const host = activeReceivers.internalipaddress;
+        api = `${protocol}://${host}/${base}/${token}`;
     });
 }
 
@@ -40,9 +39,9 @@ function command(method, endpoint, payload, explicitDelay) {
     if (!activeReceivers) {
         return discover().then(() => command(...arguments));
     }
-    url = `${api}${endpoint}` ;
+    url = api + endpoint;
 
-    console.log ('Calling API:' + api ); 
+    console.log ('Calling API:' + api);
 
     return request({
       method: method,
