@@ -55,8 +55,14 @@ const moods = {
     color: colors.blue,
     activity: {type: activities.heartbeat}
   },
-  happy: {},
-  stressed: {},
+  happy: {
+    color:colors.green,
+    activity: {type: activities.heartbeat}
+  },
+  stressed: {
+    color:colors.orange,
+    activity: {type: activities.flashing}
+  },
   critical: {
     color: colors.red,
     activity: {type: activities.flashing, duration: 5}

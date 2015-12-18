@@ -21,17 +21,15 @@ server.get('/:bulb/:mood', function (req, res, next) {
     		return true; 
     });
 
-    if (receiver === undefined) {
-    	var err = new restify.errors.BadRequestError('Bulb´s name does not match');
+    if (receiver === undefined || mood === undefined) {
+    	var err = new restify.errors.BadRequestError('Bulb´s or mood´s name does not match');
     	return next(err) ;
     }
-   	console.log(receiver);
+
 	const bulb = receiver.bulbs.indexOf(bulbName)
     const endpoint = '/lights/'+bulb+'/state';
 
-
-
-	const heartbeat = Object.assign({on: true, transitiontime: 5}, moods.alive.color);
+	const heartbeat = Object.assign({on: true, transitiontime: 5}, mood.color);
 	const fadeOut = Object.assign({}, heartbeat, {bri: 1, transitiontime: 5});
 	const off = {on: false};
 
