@@ -41,8 +41,6 @@ function command(method, endpoint, payload, explicitDelay) {
     }
     url = api + endpoint;
 
-    console.log ('Calling API:' + api);
-
     return request({
       method: method,
       uri: url,

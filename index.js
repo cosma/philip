@@ -59,7 +59,7 @@ function smoothBlink(endpoint, mood) {
 }
 
 function blink(endpoint, mood) {
-    var payload = Object.assign({alert: 'select'}, mood.color);
+    var payload = Object.assign({on: true, alert: 'lselect'}, mood.color);
     const off = {on: false};
 
     return command('PUT', endpoint, payload, 15000)
